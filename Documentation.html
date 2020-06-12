@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bionomia Tools</title>
+  <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
+  <style>
+    html {box-sizing: border-box;}
+    *, *::before, *::after {box-sizing: inherit;}
+    body {font-size: 100%;}
+    main {width: 400px; max-width: 400px; min-width: 400px; padding: .1em;}
+    h1, h2, h3, h4, h5, h6 { line-height: 1em; }
+    h2 {color: #D3633C;}
+    h2::after {background: #ddd; content: ""; display: block; height: 1px; margin-top: .5em;}
+    select {width: 100%;}
+    section {display: none;}
+    table {table-layout: fixed; width: 100%; border: solid 1px #ddd; border-spacing: 0; border-collapse: collapse;}
+    td, th {padding: .1em; font-size: smaller;}
+    th {border: 1px solid #a64626; background-color: #D3633C; color: white;}
+    td {border: 1px solid #ddd; vertical-align: top;}
+    code {color: green; white-space: pre;}
+    .code-example {border: solid 1px #ccc; padding: .1em; font-weight: bold; background-color: #FFF5EE;}
+    .code-result {border: solid 1px #bbb; padding: .1em; background-color: #FFF5EE; overflow: hidden; text-overflow: ellipsis;}
+    .inline-code {font-family: monospace; color: green;}
+  </style>
+</head>
+<body>
+  <main class="sidebar">
+    <h1>Bionomia Tools</h1>
+    <select id="functionSelect"></select>
+    <section>
+      <h2>BIONOMIA</h2>
+      <p>Returns the Bionomia URL</p>
+      <h3>Arguments</h3>
+      <table>
+        <tbody>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Type</th>
+            <th scope="col">Description</th>
+          </tr>
+          <tr>
+            <td>search</td>
+            <td><code>string</code></td>
+            <td>The search string for a human name.</td>
+          </tr>
+           <tr>
+            <td>options, family_collected:value</td>
+            <td><code>string</code></td>
+            <td>A taxonomic Family as value prefixed by 'family_collected:' by the searched person. Other options separated by commas.</td>
+          </tr>
+          <tr>
+            <td>options, family_identified:value</td>
+            <td><code>string</code></td>
+            <td>A taxonomic Family as value prefixed by 'family_identified:' by the searched person. Other options separated by commas.</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>Return Values</h3>
+      <table>
+        <tbody>
+          <tr>
+            <th scope="col">Type</th>
+            <th scope="col">Description</th>
+          </tr>
+          <tr>
+            <td><code>string</code></td>
+            <td>The Bionomia URL</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>Example</h3>
+      <pre class="code-example"><code>=BIONOMIA("Torsten Dikow", "family_collected:Asilidae, family_identified:Asilidae")</code></pre>
+      <pre class="code-result"><code>https://bionomia.net/0000-0003-4816-2909</code></pre>
+    </section>
+    <section>
+      <h2>BIONOMIAURI</h2>
+      <p>Searches Bionomia for a name and returns a Wikidata or ORCID URI</p>
+      <h3>Arguments</h3>
+      <table>
+        <tbody>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Type</th>
+            <th scope="col">Description</th>
+          </tr>
+          <tr>
+            <td>search</td>
+            <td><code>string</code></td>
+            <td>The search string for a human name.</td>
+          </tr>
+           <tr>
+            <td>options, family_collected:value</td>
+            <td><code>string</code></td>
+            <td>A taxonomic Family as value prefixed by 'family_collected:' by the searched person. Other options separated by commas.</td>
+          </tr>
+          <tr>
+            <td>options, family_identified:value</td>
+            <td><code>string</code></td>
+            <td>A taxonomic Family as value prefixed by 'family_identified:' by the searched person. Other options separated by commas.</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>Return Values</h3>
+      <table>
+        <tbody>
+          <tr>
+            <th scope="col">Type</th>
+            <th scope="col">Description</th>
+          </tr>
+          <tr>
+            <td><code>string</code></td>
+            <td>The Wikidata entity or ORCID URI.</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>Example</h3>
+      <pre class="code-example"><code>=BIONOMIAURI("Robert Stephen Adamson")</code></pre>
+      <pre class="code-result"><code>http://www.wikidata.org/entity/Q3436355</code></pre>
+    </section>
+  </main>
+  <script>
+    (function() {
+      var sections = Array.prototype.slice.call(
+          document.querySelectorAll('section'));
+      sections.sort(function(a, b) {
+        a = a.querySelector('h2').textContent;
+        b = b.querySelector('h2').textContent;
+        if (a < b) { return -1; }
+        if (a > b) { return 1; }
+        return 0;
+      });
+      var lenI = sections.length;
+      var select = document.querySelector('#functionSelect');
+
+      (function createNavigation() {
+        for (var i = 0; i < lenI; i++) {
+          var header = sections[i];
+          var functionName = header.querySelector('h2').textContent;
+          header.id = functionName;
+          var option = document.createElement('option');
+          option.textContent = functionName;
+          option.value = functionName;
+          select.appendChild(option);
+        }
+
+        var toggleFunction = function() {
+          var selectedValue = select.options[select.selectedIndex].value;
+          for (var i = 0; i < lenI; i++) {
+            var section = sections[i];
+            if (section.id === selectedValue) {
+              section.style.display = 'block';
+            } else {
+              section.style.display = 'none';
+            }
+          }
+        };
+
+        select.addEventListener('input', toggleFunction);
+        select.selectedIndex = 0;
+        toggleFunction();
+      })();
+    })();
+  </script>
+</body>
+</html>
