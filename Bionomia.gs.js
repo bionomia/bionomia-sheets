@@ -5,6 +5,7 @@ var HEADERS = {headers: {
 
 var ENDPOINT = 'https://api.bionomia.net/users/search';
 
+/**
  * Searches for a name Bionomia and returns a Bionomia URL.
  *
  * @param {string} search The search name (required).
@@ -14,7 +15,7 @@ var ENDPOINT = 'https://api.bionomia.net/users/search';
  */
 function BIONOMIA(search, options) {
   'use strict';
-  return fetchBionomia_('@id', search, options);
+  return fetchBionomia_(search, options, '@id');
 }
 
 /**
@@ -26,7 +27,7 @@ function BIONOMIA(search, options) {
  */
 function BIONOMIAURI(search, options) {
   'use strict';
-  return fetchBionomia_('sameAs', search, options);
+  return fetchBionomia_(search, options, 'sameAs');
 }
 
 /**
@@ -38,7 +39,7 @@ function BIONOMIAURI(search, options) {
  */
 function BIONOMIANAME(search, options) {
   'use strict';
-  return fetchBionomia_('name', search, options);
+  return fetchBionomia_(search, options, 'name');
 }
 
 /**
@@ -79,6 +80,7 @@ function fetchBionomia_(search, options, response_key) {
 
   var result = '', collected = '', identified = '', date = '', strict = '';
   var opts = typeof options !== 'undefined' ? options.split(",") : [];
+  var json_key = typeof response_key !== 'undefined' ? response_key : "@id";
 
   opts.forEach(function(item){
     var key_values = item.split(":");
@@ -108,9 +110,9 @@ function fetchBionomia_(search, options, response_key) {
         '&strict=' + strict;
     var json = JSON.parse(UrlFetchApp.fetch(url, HEADERS).getContentText());
     // TODO: deal with multiple hits, cutoff for scores?
-    result = json.dataFeedElement[0].item[response_key];
+    result = json.dataFeedElement[0].item[json_key];
   } catch (e) {
-    // no-op
+    //no op
   }
   return result.length > 0 ? result : '';
 }
