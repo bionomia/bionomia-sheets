@@ -118,6 +118,51 @@
       <pre class="code-example"><code>=BIONOMIAURI("Robert Stephen Adamson")</code></pre>
       <pre class="code-result"><code>http://www.wikidata.org/entity/Q3436355</code></pre>
     </section>
+    <section>
+      <h2>BIONOMIANAME</h2>
+      <p>Searches Bionomia for a name and returns a name as a string</p>
+      <h3>Arguments</h3>
+      <table>
+        <tbody>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Type</th>
+            <th scope="col">Description</th>
+          </tr>
+          <tr>
+            <td>search</td>
+            <td><code>string</code></td>
+            <td>The search string for a human name.</td>
+          </tr>
+           <tr>
+            <td>options, family_collected:value</td>
+            <td><code>string</code></td>
+            <td>A taxonomic Family as value prefixed by 'family_collected:' by the searched person. Other options separated by commas.</td>
+          </tr>
+          <tr>
+            <td>options, family_identified:value</td>
+            <td><code>string</code></td>
+            <td>A taxonomic Family as value prefixed by 'family_identified:' by the searched person. Other options separated by commas.</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>Return Values</h3>
+      <table>
+        <tbody>
+          <tr>
+            <th scope="col">Type</th>
+            <th scope="col">Description</th>
+          </tr>
+          <tr>
+            <td><code>string</code></td>
+            <td>The name as stored by Bionomia</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>Example</h3>
+      <pre class="code-example"><code>=BIONOMIANAME("R.S. Adamson")</code></pre>
+      <pre class="code-result"><code>Robert Stephen Adamson</code></pre>
+    </section>
   </main>
   <script>
     (function() {

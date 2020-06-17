@@ -5,7 +5,6 @@ var HEADERS = {headers: {
 
 var ENDPOINT = 'https://api.bionomia.net/users/search';
 
-/**
  * Searches for a name Bionomia and returns a Bionomia URL.
  *
  * @param {string} search The search name (required).
@@ -37,7 +36,7 @@ function BIONOMIAURI(search, options) {
  * @param {string} options Key:value separated by commas such as "family_collected:Asilidae, family_identified:Pisauridae" (optional).
  * @return {string} The formatted name.
  */
-function BIONOMIA(search, options) {
+function BIONOMIANAME(search, options) {
   'use strict';
   return fetchBionomia_('name', search, options);
 }
