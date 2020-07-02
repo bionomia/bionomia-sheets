@@ -24,6 +24,7 @@ function BIONOMIA(search, options) {
  * @param {string} search The search name (required).
  * @param {string} options Key:value separated by commas such as "family_collected:Asilidae, family_identified:Pisauridae" (optional).
  * @return {string} The wikidata or ORCID entity URI.
+ * @customfunction
  */
 function BIONOMIAURI(search, options) {
   'use strict';
@@ -36,6 +37,7 @@ function BIONOMIAURI(search, options) {
  * @param {string} search The search name (required).
  * @param {string} options Key:value separated by commas such as "family_collected:Asilidae, family_identified:Pisauridae" (optional).
  * @return {string} The formatted name.
+ * @customfunction
  */
 function BIONOMIANAME(search, options) {
   'use strict';
