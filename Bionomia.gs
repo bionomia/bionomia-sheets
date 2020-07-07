@@ -6,7 +6,7 @@ var HEADERS = {headers: {
 var ENDPOINT = 'https://api.bionomia.net/users/search';
 
 /**
- * Searches for a name Bionomia and returns a Bionomia URL.
+ * Searches for a name in Bionomia and returns a Bionomia URL.
  *
  * @param {string} search The search name (required).
  * @param {string} options Key:value separated by commas such as "family_collected:Asilidae, family_identified:Pisauridae" (optional).
@@ -19,7 +19,7 @@ function BIONOMIA(search, options) {
 }
 
 /**
- * Searches for a name Bionoimia and returns a Wikidata or an ORCID URI.
+ * Searches for a name in Bionoimia and returns a Wikidata or an ORCID URI.
  *
  * @param {string} search The search name (required).
  * @param {string} options Key:value separated by commas such as "family_collected:Asilidae, family_identified:Pisauridae" (optional).
@@ -32,7 +32,7 @@ function BIONOMIAURI(search, options) {
 }
 
 /**
- * Searches for a name on Bionomia and returns a formatted name.
+ * Searches for a name in Bionomia and returns a formatted name.
  *
  * @param {string} search The search name (required).
  * @param {string} options Key:value separated by commas such as "family_collected:Asilidae, family_identified:Pisauridae" (optional).
